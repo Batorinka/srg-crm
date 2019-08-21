@@ -15,7 +15,32 @@ class CreateMainContractsTable extends Migration
     {
         Schema::create('main_contracts', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('main_contract_type_id')->unsigned();
+
+            $table->string('slug')->unique();
+
+            $table->string('company_full_name');
+            $table->string('company_sub_name');
+            $table->string('number')->default('___');
+
+            $table->date('signing_date')->default(now());
+            $table->date('start_date');
+            $table->date('end_date');
+
+            $table->string('contractor_position');
+            $table->string('contractor_name');
+            $table->string('contractor_cause');
+
+            $table->text('requisites');
+            $table->text('supply_contract');
+
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('main_contract_type_id')->references('id')->on('main_contract_types');
         });
     }
 

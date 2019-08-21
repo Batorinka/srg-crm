@@ -18,3 +18,24 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+// Админка
+
+$groupData = [
+    'namespace' => 'SAUPG\Admin',
+    'prefix'    => 'admin/srg',
+    'middleware'=> 'auth',
+];
+Route::group($groupData, function () {
+    //MainContract
+    Route::resource('maincontracts', 'MainContractController')
+        ->names('srg.admin.maincontracts');
+    //Восстановление записи после софт делит
+    Route::get('/maincontracts/{maincontract}/restore','MainContractController@restore')
+        ->name('srg.admin.maincontracts.restore');
+    //Форма печати договоров
+    Route::get('/printcontract/form', 'PrintContractController@index')
+        ->name('srg.admin.printcontract.index');
+    Route::post('/printcontract/print', 'PrintContractController@print')
+        ->name('srg.admin.printcontract.print');
+});

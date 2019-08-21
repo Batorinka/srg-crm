@@ -26,8 +26,6 @@ class CreateMainContractTypesTable extends Migration
      */
     public function down()
     {
-        Schema::table('main_contract_types', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('main_contract_types');
     }
 }

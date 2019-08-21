@@ -2,11 +2,33 @@
 
 namespace App\Http\Controllers\SAUPG\Admin;
 
+use App\Http\Requests\MainContractCreateRequest;
+use App\Http\Requests\MainContractUpdateRequest;
 use App\Models\MainContract;
+use App\Repositories\MainContractRepository;
+use App\Repositories\MainContractTypeRepository;
 use Illuminate\Http\Request;
 
 class MainContractController extends BaseController
 {
+    /**
+     * @var MainContractRepository
+     */
+    private $mainContractRepository;
+
+    /**
+     * @var MainContractTypeRepository
+     */
+    private $mainContractTypeRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->mainContractRepository = app(MainContractRepository::class);
+        $this->mainContractTypeRepository = app(MainContractTypeRepository::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +36,9 @@ class MainContractController extends BaseController
      */
     public function index()
     {
-        //
+        $paginator = $this->mainContractRepository->getAllWithPaginate();
+
+        return view('srg.admin.mainContracts.index', compact('paginator'));
     }
 
     /**
@@ -24,7 +48,11 @@ class MainContractController extends BaseController
      */
     public function create()
     {
-        //
+        $item = new MainContract();
+        $categoryList = $this->mainContractTypeRepository->getForComboBox();
+
+        return view('srg.admin.mainContracts.create',
+            compact('item', 'categoryList'));
     }
 
     /**
@@ -33,20 +61,35 @@ class MainContractController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MainContractCreateRequest $request)
     {
-        //
+        $data = $request->input();
+        $item  = (new MainContract())->create($data);
+
+        if ($item) {
+            return redirect()->route('srg.admin.maincontracts.edit', [$item->slug])
+                ->with(['success' => 'Успешно сохраненено']);
+        } else {
+            return back()->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MainContract  $mainContract
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     *
+     * @return void
      */
-    public function show(MainContract $mainContract)
+    public function show($slug)
     {
-        //
+        $item = $this->mainContractRepository->getShow($slug);
+        if (empty($item)) {
+            abort(404);
+        }
+
+        return view('srg.admin.mainContracts.show', compact('item'));
     }
 
     /**
@@ -55,9 +98,16 @@ class MainContractController extends BaseController
      * @param  \App\Models\MainContract  $mainContract
      * @return \Illuminate\Http\Response
      */
-    public function edit(MainContract $mainContract)
+    public function edit($slug)
     {
-        //
+        $item = $this->mainContractRepository->getEdit($slug);
+        if (empty($item)) {
+            abort(404);
+        }
+
+        $categoryList = $this->mainContractTypeRepository->getForComboBox();
+
+        return view('srg.admin.mainContracts.edit', compact('item', 'categoryList'));
     }
 
     /**
@@ -67,9 +117,28 @@ class MainContractController extends BaseController
      * @param  \App\Models\MainContract  $mainContract
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MainContract $mainContract)
+    public function update(MainContractUpdateRequest $request, $slug)
     {
-        //
+        $item = $this->mainContractRepository->getEdit($slug);
+
+        if (empty($item)) {
+            return back()
+                ->withErrors(['msg' => "Запись id=[$item->id] не найдена"])
+                ->withInput();
+        }
+
+        $data = $request->all();
+
+        $result = $item->update($data);
+
+        if ($result) {
+            return redirect()
+                ->route('srg.admin.maincontracts.edit', $item->slug)
+                ->with(['success' => 'Успешно сохраненено']);
+        } else {
+            return back()->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
@@ -78,8 +147,33 @@ class MainContractController extends BaseController
      * @param  \App\Models\MainContract  $mainContract
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MainContract $mainContract)
+    public function destroy($slug)
     {
-        //
+        $item = $this->mainContractRepository->getEdit($slug);
+        if (empty($item)) {
+            abort(404);
+        }
+
+        $result = MainContract::destroy($item->id);
+
+        if ($result) {
+            return redirect()
+                ->route('srg.admin.maincontracts.index')
+                ->with(['success' => "Запись id[$item->id] удалена.", 'restore' => $slug]);
+        } else {
+            return back()->withErrors(['msg' => 'Ошибка удаления']);
+        }
+    }
+
+    public function restore($slug)
+    {
+        $item = $this->mainContractRepository->getTreashedMainContract($slug);
+        $result = $item->restore();
+        if ($result) {
+            return back()->with(['success' => "Запись [$item->id] успешно восстановлена"]);
+        }
+        else {
+            return back()->withErrors(['msg' => 'Ошибка восстановления записи']);
+        }
     }
 }
