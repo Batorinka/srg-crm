@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PressureUnitsTableSeeder extends Seeder
+class UnitsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,12 @@ class PressureUnitsTableSeeder extends Seeder
     public function run()
     {
         $data = [
+            [
+                'title'		=> 'м3/ч',
+            ],
+            [
+                'title'		=> 'С',
+            ],
             [
                 'title'		=> 'кгс/см2',
             ],
@@ -35,6 +41,6 @@ class PressureUnitsTableSeeder extends Seeder
             ],
         ];
 
-        DB::table('pressure_units')->insert($data);
+        DB::table('units')->insert($data);
     }
 }

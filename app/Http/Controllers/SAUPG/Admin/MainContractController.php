@@ -4,7 +4,9 @@ namespace App\Http\Controllers\SAUPG\Admin;
 
 use App\Http\Requests\MainContractCreateRequest;
 use App\Http\Requests\MainContractUpdateRequest;
+use App\Models\Gsobject;
 use App\Models\MainContract;
+use App\Repositories\GsobjectRepository;
 use App\Repositories\MainContractRepository;
 use App\Repositories\MainContractTypeRepository;
 use Illuminate\Http\Request;
@@ -21,12 +23,18 @@ class MainContractController extends BaseController
      */
     private $mainContractTypeRepository;
 
+    /**
+     * @var GsobjectRepository
+     */
+    private $gsobjectRepository;
+
     public function __construct()
     {
         parent::__construct();
 
         $this->mainContractRepository = app(MainContractRepository::class);
         $this->mainContractTypeRepository = app(MainContractTypeRepository::class);
+        $this->gsobjectRepository = app(GsobjectRepository::class);
     }
 
     /**
@@ -59,12 +67,13 @@ class MainContractController extends BaseController
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(MainContractCreateRequest $request)
     {
         $data = $request->input();
-        $item  = (new MainContract())->create($data);
+        $item = (new MainContract())->create($data);
 
         if ($item) {
             return redirect()->route('srg.admin.maincontracts.edit', [$item->slug])
@@ -78,7 +87,7 @@ class MainContractController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      *
      * @return void
      */
@@ -88,14 +97,16 @@ class MainContractController extends BaseController
         if (empty($item)) {
             abort(404);
         }
+        $gsobjects = $this->gsobjectRepository->getAllById($item->id);
 
-        return view('srg.admin.mainContracts.show', compact('item'));
+        return view('srg.admin.mainContracts.show', compact('item', 'gsobjects'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\MainContract  $mainContract
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($slug)
@@ -115,6 +126,7 @@ class MainContractController extends BaseController
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\MainContract  $mainContract
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(MainContractUpdateRequest $request, $slug)
@@ -134,9 +146,10 @@ class MainContractController extends BaseController
         if ($result) {
             return redirect()
                 ->route('srg.admin.maincontracts.edit', $item->slug)
-                ->with(['success' => 'Успешно сохраненено']);
+                ->with(['success' => 'Успешно сохранено']);
         } else {
-            return back()->withErrors(['msg' => 'Ошибка сохранения'])
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
                 ->withInput();
         }
     }
@@ -145,6 +158,7 @@ class MainContractController extends BaseController
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\MainContract  $mainContract
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($slug)
@@ -154,7 +168,9 @@ class MainContractController extends BaseController
             abort(404);
         }
 
-        $result = MainContract::destroy($item->id);
+        $gsobjects = $this->gsobjectRepository->getAllById($item->id);
+
+        $result = ($gsobjects->isEmpty()) ? MainContract::destroy($item->id) : false;
 
         if ($result) {
             return redirect()
@@ -171,8 +187,7 @@ class MainContractController extends BaseController
         $result = $item->restore();
         if ($result) {
             return back()->with(['success' => "Запись [$item->id] успешно восстановлена"]);
-        }
-        else {
+        } else {
             return back()->withErrors(['msg' => 'Ошибка восстановления записи']);
         }
     }

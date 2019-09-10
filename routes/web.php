@@ -33,9 +33,18 @@ Route::group($groupData, function () {
     //Восстановление записи после софт делит
     Route::get('/maincontracts/{maincontract}/restore','MainContractController@restore')
         ->name('srg.admin.maincontracts.restore');
+
     //Форма печати договоров
     Route::get('/printcontract/form', 'PrintContractController@index')
         ->name('srg.admin.printcontract.index');
+    //Api печати договоров
     Route::post('/printcontract/print', 'PrintContractController@print')
         ->name('srg.admin.printcontract.print');
+
+    //Gsobject
+    Route::resource('gsobjects', 'GsobjectController')
+        ->names('srg.admin.gsobjects');
+    //Восстановление записи после софт делит
+    Route::get('/gsobjects/{gsobject}/restore','GsobjectController@restore')
+        ->name('srg.admin.gsobjects.restore');
 });

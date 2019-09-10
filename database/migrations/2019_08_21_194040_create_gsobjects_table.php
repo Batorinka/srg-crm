@@ -18,7 +18,7 @@ class CreateGsobjectsTable extends Migration
 
             $table->bigInteger('main_contract_id')->unsigned();
             $table->bigInteger('TO_contract_id')->unsigned();
-            $table->bigInteger('pressure_unit_id')->unsigned();
+            $table->bigInteger('unit_id')->unsigned();
 
             $table->string('slug')->unique();
 
@@ -36,7 +36,7 @@ class CreateGsobjectsTable extends Migration
 
             $table->foreign('main_contract_id')->references('id')->on('main_contracts');
             $table->foreign('TO_contract_id')->references('id')->on('t_o_contracts');
-            $table->foreign('pressure_unit_id')->references('id')->on('pressure_units');
+            $table->foreign('unit_id')->references('id')->on('pressure_units');
         });
     }
 

@@ -13,10 +13,10 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $this->call(MainContractTypesTableSeeder::class);
-        $this->call(PressureUnitsTableSeeder::class);
+        $this->call(UnitsTableSeeder::class);
         factory(\App\Models\User::class, 1)->create();
-        factory(\App\Models\MainContract::class, 50)->create();
-        factory(\App\Models\TO_contract::class, 10)->create();
-        factory(\App\Models\Gsobject::class, 50)->create();
+        factory(\App\Models\MainContract::class, 51)->create();
+        factory(\App\Models\TO_contract::class, 11)->create();
+        factory(\App\Models\Gsobject::class, 51)->create();
     }
 }

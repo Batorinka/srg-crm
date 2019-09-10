@@ -65,10 +65,25 @@
                         </div>
                     </div>
                     <div class="tab-pane fade card border-primary mb-3" id="objects">
+                        @if($gsobjects->isEmpty())
                         <div class="card-body">
-                            <h4 class="card-title">Profile card title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h4 class="card-title">{{ $item->company_sub_name }}</h4>
+                            <p class="card-text">Объекты отсутствуют.</p>
                         </div>
+                        @else
+                        <div class="card-body">
+                            <h4 class="card-title">{{ $item->company_sub_name }}</h4>
+                            <ul>
+                                @foreach($gsobjects as $gsobject)
+                                <li>
+                                    <a href="{{ route('srg.admin.gsobjects.show', $gsobject->slug) }}">
+                                        {{ $gsobject->name }}
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

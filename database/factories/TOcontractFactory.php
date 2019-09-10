@@ -6,11 +6,10 @@ use App\Models\TO_contract;
 use Faker\Generator as Faker;
 
 $factory->define(TO_contract::class, function (Faker $faker) {
-    $mainContractName = (App\Models\MainContract::class)->company_sub_name;
 
     return [
         'main_contract_id'  => rand(1, 50),
-        'slug'              => Str::slug($mainContractName . 'TO'),
+        'slug'              => rand(1000000000,9999999999),
         'number'            => $faker->ean8,
         'payment_period'    => 12,
         'signing_date'      => $faker->date(),

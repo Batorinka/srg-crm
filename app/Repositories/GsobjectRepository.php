@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\MainContract as Model;
+use App\Models\Gsobject as Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
  *
  * @package App\Repositories
  */
-class MainContractRepository extends CoreRepository
+class GsobjectRepository extends CoreRepository
 {
     /**
      * @return mixed
@@ -28,18 +28,18 @@ class MainContractRepository extends CoreRepository
         $columns = [
             'id',
             'slug',
-            'company_sub_name',
-            'user_id'
+            'name',
+            'main_contract_id',
         ];
         $result = $this->startConditions()
             ->select($columns)
-            ->where('user_id', \Auth::user()->id)
-            ->orderBy('id')
+//            ->where('user_id', \Auth::user()->id)
             ->with([
-                'mainContractType:id,title',
-                'user:id,name'
+                'mainContract:id,company_sub_name',
             ])
+            ->orderBy('main_contract_id')
             ->paginate(10);
+
         return $result;
     }
 
@@ -50,25 +50,13 @@ class MainContractRepository extends CoreRepository
     {
         $columns = [
             'slug',
-            'company_sub_name',
-            'company_full_name',
-            'number',
-            'signing_date',
-            'main_contract_type_id',
-            'contractor_position',
-            'contractor_name',
-            'contractor_cause',
-            'requisites',
+            'name',
         ];
 
         $result = $this->startConditions()
             ->select($columns)
-            ->where('id', $id)
-            ->with([
-                'mainContractType:id,title'
-            ])
-            ->first();
-
+            ->where('main_contract_id', $id)
+            ->get();
         return $result;
     }
 
@@ -105,24 +93,24 @@ class MainContractRepository extends CoreRepository
 
         return $result;
     }
-
-    /**
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function getForComboBox()
-    {
-        $columns = [
-            'id',
-            'company_sub_name',
-        ];
-        $result = $this
-            ->startConditions()
-            ->select($columns)
-            ->toBase()
-            ->get();
-
-        return $result;
-    }
+//
+//    /**
+//     * @param $id
+//     *
+//     * @return mixed
+//     */
+//    public function getForComboBox()
+//    {
+//        $columns = [
+//            'id',
+//            'company_sub_name',
+//        ];
+//        $result = $this
+//            ->startConditions()
+//            ->select($columns)
+//            ->toBase()
+//            ->get();
+//
+//        return $result;
+//    }
 }

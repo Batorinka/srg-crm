@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePressureUnitsTable extends Migration
+class CreateUnitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePressureUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pressure_units', function (Blueprint $table) {
+        Schema::create('units', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
         });
@@ -26,6 +26,6 @@ class CreatePressureUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pressure_units');
+        Schema::dropIfExists('units');
     }
 }

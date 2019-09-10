@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SAUPG\Admin;
 
 use App\Http\Controllers\SAUPG\Admin\BaseController;
 use App\Models\TO_contract;
