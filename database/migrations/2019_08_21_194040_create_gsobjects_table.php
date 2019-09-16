@@ -36,7 +36,7 @@ class CreateGsobjectsTable extends Migration
 
             $table->foreign('main_contract_id')->references('id')->on('main_contracts');
             $table->foreign('TO_contract_id')->references('id')->on('t_o_contracts');
-            $table->foreign('unit_id')->references('id')->on('pressure_units');
+            $table->foreign('unit_id')->references('id')->on('units');
         });
     }
 

@@ -61,6 +61,16 @@ class GsobjectRepository extends CoreRepository
     }
 
     /**
+     * @return
+     */
+    public function getOneById($id)
+    {
+        return $this->startConditions()
+            ->where('id', $id)
+            ->first();
+    }
+
+    /**
      * @param $id
      *
      * @return mixed
@@ -95,7 +105,7 @@ class GsobjectRepository extends CoreRepository
     }
 //
 //    /**
-//     * @param $id
+//     * @param $id2
 //     *
 //     * @return mixed
 //     */
@@ -103,7 +113,7 @@ class GsobjectRepository extends CoreRepository
 //    {
 //        $columns = [
 //            'id',
-//            'company_sub_name',
+//            'name',
 //        ];
 //        $result = $this
 //            ->startConditions()

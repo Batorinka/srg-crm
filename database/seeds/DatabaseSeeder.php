@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         factory(\App\Models\MainContract::class, 51)->create();
         factory(\App\Models\TO_contract::class, 11)->create();
         factory(\App\Models\Gsobject::class, 51)->create();
+        factory(\App\Models\StampAct::class, 20)->create();
     }
 }

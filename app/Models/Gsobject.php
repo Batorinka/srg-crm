@@ -26,6 +26,9 @@ class Gsobject extends Model
 {
     use SoftDeletes;
 
+    /**
+     * @var array
+     */
     protected $fillable =
         [
             'main_contract_id',
@@ -50,9 +53,9 @@ class Gsobject extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function pressureUnit()
+    public function unit()
     {
-        return $this->belongsTo(PressureUnit::class);
+        return $this->belongsTo(Unit::class);
     }
 
     /**
@@ -61,5 +64,13 @@ class Gsobject extends Model
     public function toContract()
     {
         return $this->belongsTo(TO_contract::class, 'TO_contract_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function stampActs()
+    {
+        return $this->hasMany(StampAct::class);
     }
 }

@@ -7,12 +7,19 @@ use App\Http\Requests\GsobjectCreateRequest;
 use App\Http\Requests\GsobjectUpdateRequest;
 use App\Models\Gsobject;
 use App\Models\MainContract;
+use App\Models\StampAct;
 use App\Repositories\GsobjectRepository;
 use App\Repositories\MainContractRepository;
-use App\Repositories\PressureUnitRepository;
+use App\Repositories\StampActRepository;
+use App\Repositories\UnitRepository;
 use App\Repositories\TOContractRepository;
 use Illuminate\Http\Request;
 
+/**
+ * Class GsobjectController
+ *
+ * @package App\Http\Controllers\SAUPG\Admin
+ */
 class GsobjectController extends BaseController
 {
     /**
@@ -20,9 +27,9 @@ class GsobjectController extends BaseController
      */
     private $gsobjectRepository;
     /**
-     * @var PressureUnitRepository|\Illuminate\Contracts\Foundation\Application|mixed
+     * @var UnitRepository|\Illuminate\Contracts\Foundation\Application|mixed
      */
-    private $pressureUnitRepository;
+    private $unitRepository;
     /**
      * @var MainContractRepository|\Illuminate\Contracts\Foundation\Application|mixed
      */
@@ -33,15 +40,21 @@ class GsobjectController extends BaseController
     private $toContractRepository;
 
     /**
+     * @var StampActRepository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private $stampActRepository;
+
+    /**
      * GsobjectController constructor.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->gsobjectRepository =     app(GsobjectRepository::class);
-        $this->pressureUnitRepository = app(PressureUnitRepository::class);
-        $this->mainContractRepository = app(MainContractRepository::class);
-        $this->toContractRepository   = app(TOContractRepository::class);
+        $this->gsobjectRepository       = app(GsobjectRepository::class);
+        $this->unitRepository           = app(UnitRepository::class);
+        $this->mainContractRepository   = app(MainContractRepository::class);
+        $this->toContractRepository     = app(TOContractRepository::class);
+        $this->stampActRepository       = app(StampActRepository::class);
     }
 
     /**
@@ -65,13 +78,13 @@ class GsobjectController extends BaseController
     {
         $item = new Gsobject();
 
-        $pressureUnitList = $this->pressureUnitRepository->getForComboBox();
+        $unitList = $this->unitRepository->getForComboBox();
         $mainContractList = $this->mainContractRepository->getForComboBox();
         $toContractList   = $this->toContractRepository->getForComboBox();
 
         return view('srg.admin.gsobjects.edit',
             compact('item',
-                'pressureUnitList',
+                'unitList',
                 'mainContractList',
                 'toContractList'));
     }
@@ -111,8 +124,9 @@ class GsobjectController extends BaseController
         if (empty($item)) {
             abort(404);
         }
+        $stampActs = $this->stampActRepository->getAllByGSObjectId($item->id);
 
-        return view('srg.admin.gsobjects.show', compact('item'));
+        return view('srg.admin.gsobjects.show', compact('item', 'stampActs'));
     }
 
     /**
@@ -128,13 +142,13 @@ class GsobjectController extends BaseController
             abort(404);
         }
 
-        $pressureUnitList = $this->pressureUnitRepository->getForComboBox();
+        $unitList = $this->unitRepository->getForComboBox();
         $mainContractList = $this->mainContractRepository->getForComboBox();
         $toContractList   = $this->toContractRepository->getForComboBox();
 
         return view('srg.admin.gsobjects.edit',
             compact('item',
-                'pressureUnitList',
+                'unitList',
                 'mainContractList',
                 'toContractList'));
     }
@@ -184,19 +198,26 @@ class GsobjectController extends BaseController
             abort(404);
         }
 
-        //TODO сделать проверку на связь с devices, equipments, stamp_acts, programming_acts
+        //TODO сделать проверку на связь с devices, equipments, programming_acts
 
-        $result = Gsobject::destroy($item->id);
+        $stampacts = $this->stampActRepository->getAllByGSObjectId($item->id);
+
+        $result = ($stampacts->isEmpty()) ? Gsobject::destroy($item->id) : false;
 
         if ($result) {
             return redirect()
                 ->route('srg.admin.gsobjects.index')
-                ->with(['success' => "Запись id[$item->id] удалена.", 'restore' => $slug]);
+                ->with(['success' => "Запись id[$item->id] удалена.", 'restore' => $slug, 'title' => 'gsobject']);
         } else {
             return back()->withErrors(['msg' => 'Ошибка удаления']);
         }
     }
 
+    /**
+     * @param $slug
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function restore($slug)
     {
         $item = $this->gsobjectRepository->getTreashedMainContract($slug);

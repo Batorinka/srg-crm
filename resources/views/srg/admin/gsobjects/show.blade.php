@@ -5,7 +5,7 @@
         /** @var \App\Models\Gsobject $item */
     @endphp
     <div class="container">
-        @include('srg.admin.mainContracts.includes.result_messages')
+        @include('srg.admin.gsobjects.includes.result_messages')
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
@@ -13,7 +13,7 @@
                         <a class="nav-link active" data-toggle="tab" href="#info" style="">Общая информация</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#help" style="">Помощь</a>
+                        <a class="nav-link" data-toggle="tab" href="#stamps" style="">Пломбы</a>
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
@@ -45,12 +45,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Акт установки пломб</th>
-                                    <td>
-                                        от <strong>{{ \Carbon\Carbon::parse($item->stamp_act_date)->format('d.m.Y') }}</strong>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th>Довор транспортировки газа</th>
                                     <td>
                                         № {{ $item->mainContract->number }}
@@ -65,17 +59,50 @@
                                 <tr>
                                     <th>Единица измерения давления</th>
                                     <td>
-                                        {{ $item->pressureUnit->title }}
+                                        {{ $item->unit->title }}
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane fade card border-primary mb-3" id="help">
+                    <div class="tab-pane fade card border-primary mb-3" id="stamps">
                         <div class="card-body">
-                            <h4 class="card-title">Profile card title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h4 class="card-title">Пломбы</h4>
+                            <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+                                <a class="btn btn-outline-primary" href="{{ route('srg.admin.stampacts.create', $item->slug) }}">Добавить</a>
+                            </nav>
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr>
+                                    <th>Акт установки пломб</th>
+                                    <td>
+                                        от <strong>{{ \Carbon\Carbon::parse($item->stamp_act_date)->format('d.m.Y') }}</strong>
+                                    </td>
+                                </tr>
+                                @foreach($stampActs as $stampAct)
+                                <tr>
+                                    <th>{{ $stampAct->place }}</th>
+                                    <td>{{ $stampAct->number }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                            <div class="btn-group" role="group">
+                                                <button id="btnGroupDrop3" type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop3" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);">
+                                                    <a class="dropdown-item" href="{{ route('srg.admin.stampacts.edit', $stampAct->id) }}">Изменить</a>
+                                                    <form method="POST" action="{{ route('srg.admin.stampacts.destroy', $stampAct->id) }}">
+                                                        @method('DELETE')
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="dropdown-item">Удалить</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

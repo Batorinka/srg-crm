@@ -47,4 +47,15 @@ Route::group($groupData, function () {
     //Восстановление записи после софт делит
     Route::get('/gsobjects/{gsobject}/restore','GsobjectController@restore')
         ->name('srg.admin.gsobjects.restore');
+
+    //StampAct
+    Route::resource('stampacts', 'StampActController')
+        ->except(['create'])
+        ->names('srg.admin.stampacts');
+    //StampAct create
+    Route::get('/stampacts/{stampact}/create','StampActController@create')
+        ->name('srg.admin.stampacts.create');
+    //Восстановление записи после софт делит
+    Route::get('/stampacts/{stampact}/restore','StampActController@restore')
+        ->name('srg.admin.stampacts.restore');
 });

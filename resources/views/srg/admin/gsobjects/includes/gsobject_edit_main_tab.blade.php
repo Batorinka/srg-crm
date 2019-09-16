@@ -81,22 +81,22 @@
            type="date"
            name="stamp_act_date"
            value="{{ old('stamp_act_date', $item->stamp_act_date) }}"
-           required>
+           required>Unit
 </div>
 <div class="form-group">
-    <label for="pressure_unit_id">Единица измерения давления в корректоре</label>
-    <select name="pressure_unit_id"
-            id="pressure_unit_id"
+    <label for="unit_id">Единица измерения давления в корректоре</label>
+    <select name="unit_id"
+            id="unit_id"
             class="form-control"
             placeholder="Выберите единицу измерения давления в корректоре"
             required>
-        @foreach($pressureUnitList as $pressureUnitOption)
-            <option value="{{ $pressureUnitOption->id }}"
-                    @if($pressureUnitOption->id ==
-                        old('pressure_unit_id', $item->pressure_unit_id))
+        @foreach($unitList as $unitOption)
+            <option value="{{ $unitOption->id }}"
+                    @if($unitOption->id ==
+                        old('unit_id', $item->unit_id))
                     selected
                 @endif>
-                {{ $pressureUnitOption->title }}
+                {{ $unitOption->title }}
             </option>
         @endforeach
     </select>

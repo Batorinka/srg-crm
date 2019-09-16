@@ -12,7 +12,7 @@ $factory->define(Gsobject::class, function (Faker $faker) {
         'ГРП',
         'Цех'
     ];
-    $objectName = $objectNames[rand(0,2)];
+    $objectName = $objectNames[rand(0,2)] . rand(1000000000,9999999999);
 
     $memberPositions = [
         'Мастер котельной',
@@ -31,7 +31,7 @@ $factory->define(Gsobject::class, function (Faker $faker) {
     return [
         'name'              => $objectName,
         'grs'               => $grs,
-        'slug'              => Str::slug($objectName . rand(1000000000,9999999999)),
+        'slug'              => Str::slug($objectName),
         'member_position'   => $memberPosition,
         'member_name'       => $faker->name,
         'address'           => $faker->address,

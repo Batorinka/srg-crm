@@ -2,15 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\PressureUnit as Model;
+use App\Models\Unit as Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
- * Class PressureUnitRepository
+ * Class UnitRepository
  *
  * @package App\Repositories
  */
-class PressureUnitRepository extends CoreRepository
+class UnitRepository extends CoreRepository
 {
     /**
      * @return mixed
