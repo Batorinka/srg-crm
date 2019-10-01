@@ -37,7 +37,7 @@ class GsobjectRepository extends CoreRepository
             ->with([
                 'mainContract:id,company_sub_name',
             ])
-            ->orderBy('main_contract_id')
+            ->orderBy('id')
             ->paginate(10);
 
         return $result;

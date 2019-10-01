@@ -6,7 +6,7 @@ use App\Models\StampAct as Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
- * Class MainContractRepository
+ * Class StampActRepository
  *
  * @package App\Repositories
  */

@@ -27,7 +27,7 @@ class GsobjectUpdateRequest extends FormRequest
             'id'                    => 'request|integer|exists:gsobjects,id',
             'main_contract_id'      => 'required|integer|exists:main_contracts,id',
             'TO_contract_id'        => 'required|integer|exists:t_o_contracts,id',
-            'pressure_unit_id'      => 'required|integer|exists:pressure_units,id',
+            'unit_id'               => 'required|integer|exists:units,id',
             'name'                  => 'required|min:3|max:100',
             'address'               => 'required|min:3|max:100',
             'grs'                   => 'required|min:3|max:100',

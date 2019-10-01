@@ -50,7 +50,7 @@ Route::group($groupData, function () {
 
     //StampAct
     Route::resource('stampacts', 'StampActController')
-        ->except(['create'])
+        ->except(['create, index, show'])
         ->names('srg.admin.stampacts');
     //StampAct create
     Route::get('/stampacts/{stampact}/create','StampActController@create')
@@ -58,4 +58,15 @@ Route::group($groupData, function () {
     //Восстановление записи после софт делит
     Route::get('/stampacts/{stampact}/restore','StampActController@restore')
         ->name('srg.admin.stampacts.restore');
+
+    //Limit
+    Route::resource('limits', 'LimitController')
+        ->except(['create, index, show'])
+        ->names('srg.admin.limits');
+    //Limit create
+    Route::get('/limits/{limit}/create','LimitController@create')
+        ->name('srg.admin.limits.create');
+    //Восстановление записи после софт делит
+    Route::get('/limits/{limit}/restore','LimitController@restore')
+        ->name('srg.admin.limits.restore');
 });

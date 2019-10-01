@@ -2,36 +2,41 @@
 
 namespace App\Http\Controllers\SAUPG\Admin;
 
-use App\Http\Controllers\SAUPG\Admin\BaseController;
-use App\Http\Requests\StampActCreateRequest;
-use App\Http\Requests\StampActUpdateRequest;
-use App\Models\Gsobject;
-use App\Models\StampAct;
+use App\Http\Requests\LimitCreateRequest;
+use App\Http\Requests\LimitUpdateRequest;
+use App\Models\Limit;
+use App\Repositories\GroupRepository;
 use App\Repositories\GsobjectRepository;
-use App\Repositories\StampActRepository;
+use App\Repositories\LimitRepository;
 use Illuminate\Http\Request;
 
-class StampActController extends BaseController
+class LimitController extends BaseController
 {
     /**
      * @var GsobjectRepository|\Illuminate\Contracts\Foundation\Application|mixed
      */
     private $gsobjectRepository;
-    /**
-     * @var StampActRepository|\Illuminate\Contracts\Foundation\Application|mixed
-     */
-    private $stampActRepository;
 
     /**
-     * StampActController constructor.
+     * @var LimitRepository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private $limitRepository;
+
+    /**
+     * @var GroupRepository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private $groupRepository;
+
+    /**
+     * LimitController constructor.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->stampActRepository = app(StampActRepository::class);
         $this->gsobjectRepository = app(GsobjectRepository::class);
+        $this->limitRepository    = app(LimitRepository::class);
+        $this->groupRepository    = app(GroupRepository::class);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -39,13 +44,15 @@ class StampActController extends BaseController
      */
     public function create($slug)
     {
-        $item = new StampAct();
+        $item = new Limit();
 
         $gsobject = $this->gsobjectRepository->getEdit($slug);
+        $groups     = $this->groupRepository->getForComboBox();
 
-        return view('srg.admin.stampacts.edit',
+        return view('srg.admin.limits.edit',
             compact('item',
-                'gsobject'));
+                'gsobject',
+                'groups'));
     }
 
     /**
@@ -54,14 +61,14 @@ class StampActController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StampActCreateRequest $request)
+    public function store(LimitCreateRequest $request)
     {
         $data = $request->input();
-        $item = (new StampAct())->create($data);
+        $item = (new Limit())->create($data);
 
         if ($item) {
             return redirect()
-                ->route('srg.admin.stampacts.edit', [$item->id])
+                ->route('srg.admin.limits.edit', [$item->id])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -73,33 +80,35 @@ class StampActController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\StampAct  $stampAct
+     * @param  \App\Models\Limit  $limit
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $item = $this->stampActRepository->getEdit($id);
+        $item = $this->limitRepository->getEdit($id);
         if (empty($item)) {
             abort(404);
         }
 
         $gsobject   = $this->gsobjectRepository->getOneById($item->gsobject_id);
+        $groups     = $this->groupRepository->getForComboBox();
 
-        return view('srg.admin.stampacts.edit',
+        return view('srg.admin.limits.edit',
             compact('item',
-                'gsobject'));
+                'gsobject',
+                'groups'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\StampAct  $stampAct
+     * @param  \App\Models\Limit  $limit
      * @return \Illuminate\Http\Response
      */
-    public function update(StampActUpdateRequest $request, $id)
+    public function update(LimitUpdateRequest $request, $id)
     {
-        $item = $this->stampActRepository->getEdit($id);
+        $item = $this->limitRepository->getEdit($id);
 
         if (empty($item)) {
             return back()
@@ -113,7 +122,7 @@ class StampActController extends BaseController
 
         if ($result) {
             return redirect()
-                ->route('srg.admin.stampacts.edit', $item->id)
+                ->route('srg.admin.limits.edit', $item->id)
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -125,24 +134,24 @@ class StampActController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\StampAct  $stampAct
+     * @param  \App\Models\Limit  $limit
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $item = $this->stampActRepository->getEdit($id);
+        $item = $this->limitRepository->getEdit($id);
         $gsobject = $this->gsobjectRepository->getOneById($item->gsobject_id);
 
         if (empty($item)) {
             abort(404);
         }
 
-        $result = StampAct::destroy($item->id);
+        $result = Limit::destroy($item->id);
 
         if ($result) {
             return redirect()
                 ->route('srg.admin.gsobjects.show', $gsobject->slug)
-                ->with(['success' => "Запись id[$item->id] удалена.", 'restore' => $id, 'title' => 'stampact']);
+                ->with(['success' => "Запись id[$item->id] удалена.", 'restore' => $id, 'title' => 'limit']);
         } else {
             return back()->withErrors(['msg' => 'Ошибка удаления']);
         }
@@ -155,7 +164,7 @@ class StampActController extends BaseController
      */
     public function restore($id)
     {
-        $item = $this->stampActRepository->getTreashedStampAct($id);
+        $item = $this->limitRepository->getTreashedLimit($id);
         $result = $item->restore();
         if ($result) {
             return back()->with(['success' => "Запись [$item->id] успешно восстановлена"]);

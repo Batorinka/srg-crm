@@ -33,7 +33,7 @@ class Gsobject extends Model
         [
             'main_contract_id',
             'TO_contract_id',
-            'pressure_unit_id',
+            'unit_id',
             'slug',
             'name',
             'address',
@@ -72,5 +72,13 @@ class Gsobject extends Model
     public function stampActs()
     {
         return $this->hasMany(StampAct::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function limits()
+    {
+        return $this->hasMany(Limit::class);
     }
 }

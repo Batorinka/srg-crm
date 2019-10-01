@@ -9,6 +9,7 @@ use App\Models\Gsobject;
 use App\Models\MainContract;
 use App\Models\StampAct;
 use App\Repositories\GsobjectRepository;
+use App\Repositories\LimitRepository;
 use App\Repositories\MainContractRepository;
 use App\Repositories\StampActRepository;
 use App\Repositories\UnitRepository;
@@ -45,6 +46,11 @@ class GsobjectController extends BaseController
     private $stampActRepository;
 
     /**
+     * @var LimitRepository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private $limitRepository;
+
+    /**
      * GsobjectController constructor.
      */
     public function __construct()
@@ -55,6 +61,7 @@ class GsobjectController extends BaseController
         $this->mainContractRepository   = app(MainContractRepository::class);
         $this->toContractRepository     = app(TOContractRepository::class);
         $this->stampActRepository       = app(StampActRepository::class);
+        $this->limitRepository          = app(LimitRepository::class);
     }
 
     /**
@@ -125,8 +132,13 @@ class GsobjectController extends BaseController
             abort(404);
         }
         $stampActs = $this->stampActRepository->getAllByGSObjectId($item->id);
+        $limits    = $this->limitRepository->getAllByGSObjectId($item->id);
 
-        return view('srg.admin.gsobjects.show', compact('item', 'stampActs'));
+        return view('srg.admin.gsobjects.show', compact(
+            'item',
+            'stampActs',
+            'limits'
+        ));
     }
 
     /**
@@ -142,7 +154,7 @@ class GsobjectController extends BaseController
             abort(404);
         }
 
-        $unitList = $this->unitRepository->getForComboBox();
+        $unitList         = $this->unitRepository->getForComboBox();
         $mainContractList = $this->mainContractRepository->getForComboBox();
         $toContractList   = $this->toContractRepository->getForComboBox();
 
@@ -200,9 +212,10 @@ class GsobjectController extends BaseController
 
         //TODO сделать проверку на связь с devices, equipments, programming_acts
 
-        $stampacts = $this->stampActRepository->getAllByGSObjectId($item->id);
+        $stampacts  = $this->stampActRepository->getAllByGSObjectId($item->id);
+        $limits     = $this->limitRepository->getAllByGSObjectId($item->id);
 
-        $result = ($stampacts->isEmpty()) ? Gsobject::destroy($item->id) : false;
+        $result = ($stampacts->isEmpty() and $limits->isEmpty()) ? Gsobject::destroy($item->id) : false;
 
         if ($result) {
             return redirect()
