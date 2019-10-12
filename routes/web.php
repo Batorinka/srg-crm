@@ -27,6 +27,11 @@ $groupData = [
     'middleware'=> 'auth',
 ];
 Route::group($groupData, function () {
+    //SetupValue
+    Route::resource('setupvalues', 'SetupValueController')
+        ->except(['show', 'destroy', 'create', 'store'])
+        ->names('srg.admin.setupvalues');
+
     //MainContract
     Route::resource('maincontracts', 'MainContractController')
         ->names('srg.admin.maincontracts');
@@ -50,7 +55,7 @@ Route::group($groupData, function () {
 
     //StampAct
     Route::resource('stampacts', 'StampActController')
-        ->except(['create, index, show'])
+        ->except(['create', 'index', 'show'])
         ->names('srg.admin.stampacts');
     //StampAct create
     Route::get('/stampacts/{stampact}/create','StampActController@create')
@@ -61,7 +66,7 @@ Route::group($groupData, function () {
 
     //Limit
     Route::resource('limits', 'LimitController')
-        ->except(['create, index, show'])
+        ->except(['create', 'index', 'show'])
         ->names('srg.admin.limits');
     //Limit create
     Route::get('/limits/{limit}/create','LimitController@create')

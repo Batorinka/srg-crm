@@ -41,6 +41,13 @@ class PrintContractController extends BaseController
      */
     public function print(Request $request)
     {
+//        СУММА ПРОПИСЬЮ
+//
+//        $num = '777.77';
+//        list($rub,$kop) = explode('.',sprintf("%015.2f", floatval($num)));
+//        $moneyToStr = new MoneyToStr('RUR', 'RUS', 'NUMBER');
+//        $money = $moneyToStr->convert($rub, $kop);
+
         $main_contract_id = $request->input('main_contract_id');
 
         $TBS = new clsTinyButStrong; // new instance of TBS

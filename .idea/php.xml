@@ -95,6 +95,7 @@
       <path value="$PROJECT_DIR$/vendor/shadz3rg/php-stamp" />
       <path value="$PROJECT_DIR$/vendor/tinybutstrong/opentbs" />
       <path value="$PROJECT_DIR$/vendor/tinybutstrong/tinybutstrong" />
+      <path value="$PROJECT_DIR$/vendor/javadev/moneytostr-russian" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

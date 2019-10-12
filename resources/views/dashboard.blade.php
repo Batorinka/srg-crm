@@ -72,6 +72,26 @@
                 </div>
             </a>
         </div>
+        <div class="col-md-6">
+            <a href="{{ route('srg.admin.setupvalues.index') }}">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-header">Информация о Мособлгазе</div>
+                    <div class="card-body d-none d-sm-block">
+                        <p>
+                            В данном меню можно посмотреть и отредактировать информацию о Мособлгазе:
+                        </p>
+                        <ul>
+                            <li>
+                                Тарифы на услуги по транспортировке газа
+                            </li>
+                            <li>
+                                и другое...
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 @endsection

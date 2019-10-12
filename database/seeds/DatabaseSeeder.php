@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MainContractTypesTableSeeder::class);
         $this->call(UnitsTableSeeder::class);
         $this->call(GroupsTableSeeder::class);
+        $this->call(SetupValuesTableSeeder::class);
         factory(\App\Models\User::class, 1)->create();
         factory(\App\Models\MainContract::class, 51)->create();
         factory(\App\Models\TO_contract::class, 11)->create();

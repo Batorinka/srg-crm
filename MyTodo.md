@@ -1,25 +1,13 @@
-Инструкция по созданию сущности:
-- php artisan make:model Models/StampAct -crm
-(c - Controller, r - resources, m - migration)
-- Находим контроллер, его нужно переместить в нужную папку -> F6 (move file)
-- В контроллере меняем extends на BaseController
-- Меняем namespace на правильный
-- В routes/web.php прописываем ресурсный роут:     
-`` Route::resource('stampacts', 'StampActController')
-->names('srg.admin.stampacts');``
-- Добавляем нужные поля в миграцию
-- Создаем Factory
-- В файл seeds/DatabaseSeeder.php добавляем строку:
-``factory(\App\Models\StampAct::class, 20)->create();``
-- php artisan migrate --seed
-- Для того чтобы достать информацию из базы данных, создаем Repository
-- Для валидации данных перед отправкой в базу данных создаем Request
-- Если нужно произвести какие либо действия перед create, update, delete, создаем Observer
-- В Providers/AppServiceProvider.php в boot() прописываем ``StampAct::observe(StampActObserver::class);``
-- В моделе прописываем:
-``use SoftDeletes; // при удаление записи помечаются как удаленные, но не удаляются из базы данных``
-- В моделе прописываем массив fillable, в который прописываем поля которые можно массово записывать в базу данных
-- В моделе прописываем функции для связи с другими базами данных
+1) **Сделать модель, миграцию и ресурсный контроллер для конфигураций**
+    - zero_group
+    - first_group
+    - second_group
+    - third_group
+    - fourth_group
+    - fifth_group
+    - sixth_group
+    - special_increase
+2) **Сделать коммит**
 ---
 ---
 1) ~~Сделать модель и сид для групп~~
@@ -40,7 +28,7 @@
     - oct_4 - 8 - 10
     - nov_4 - 8 - 10
     - dec_4 - 8 - 10
-3) **Сделать коммит**
+3) ~~Сделать коммит~~
 4) **Livewire**
 ---
 ---

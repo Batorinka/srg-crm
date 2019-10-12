@@ -17,7 +17,7 @@ $factory->define(Limit::class, function (Faker $faker) {
 
     return [
         'gsobject_id'   => rand(1,10),
-        'group_id'      => rand(1,6),
+        'group_id'      => rand(1,5),
         'year'          => $year,
         'supplier'      => 'ООО «Газпром межрегионгаз Москва»',
         'jan_4'         => '0.000',

@@ -3,12 +3,10 @@
 @section('content')
     <div class="container">
         <h3>Список объектов</h3>
+        <a class="btn btn-outline-primary mb-3" href="{{ route('srg.admin.gsobjects.create') }}">Добавить</a>
         @include('srg.admin.gsobjects.includes.result_messages')
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                    <a class="btn btn-outline-primary" href="{{ route('srg.admin.gsobjects.create') }}">Добавить</a>
-                </nav>
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-hover">

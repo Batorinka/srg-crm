@@ -41,6 +41,7 @@
                                 <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
                                     <a class="dropdown-item" href="{{ route('srg.admin.maincontracts.index') }}">Предприятия</a>
                                     <a class="dropdown-item" href="{{ route('srg.admin.gsobjects.index') }}">Объекты</a>
+                                    <a class="dropdown-item" href="{{ route('srg.admin.setupvalues.index') }}">Мособлгаз</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">

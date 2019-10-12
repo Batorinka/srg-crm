@@ -13,6 +13,7 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
+        \App\Models\Group::unguard();
         Schema::create('groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');

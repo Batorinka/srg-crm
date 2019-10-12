@@ -3,12 +3,10 @@
 @section('content')
     <div class="container">
         <h3>Список предприятий</h3>
+        <a class="btn btn-outline-primary mb-3" href="{{ route('srg.admin.maincontracts.create') }}">Добавить</a>
         @include('srg.admin.mainContracts.includes.result_messages')
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                    <a class="btn btn-outline-primary" href="{{ route('srg.admin.maincontracts.create') }}">Добавить</a>
-                </nav>
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-hover">
@@ -31,7 +29,6 @@
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-
                                             <div class="btn-group" role="group">
                                                 <button id="btnGroupDrop3" type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop3" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);">
