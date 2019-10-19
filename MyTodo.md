@@ -1,4 +1,16 @@
-1) **Сделать модель, миграцию и ресурсный контроллер для конфигураций**
+1) **Сделать модель, миграцию и ресурсный контроллер для device**
+    - gsobject_id
+    - device_type_id
+    - device_name_id
+    - unit_id
+    - number
+    - last_muster_date
+    - muster_interval
+    - range
+2) **Сделать коммит**
+---
+---
+1) ~~Сделать модель, миграцию и ресурсный контроллер для конфигураций~~
     - zero_group
     - first_group
     - second_group
@@ -7,7 +19,7 @@
     - fifth_group
     - sixth_group
     - special_increase
-2) **Сделать коммит**
+2) ~~Сделать коммит~~
 ---
 ---
 1) ~~Сделать модель и сид для групп~~

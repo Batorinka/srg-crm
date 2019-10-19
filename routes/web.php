@@ -74,4 +74,23 @@ Route::group($groupData, function () {
     //Восстановление записи после софт делит
     Route::get('/limits/{limit}/restore','LimitController@restore')
         ->name('srg.admin.limits.restore');
+
+    //Device
+    Route::resource('devices', 'DeviceController')
+        ->except(['create', 'index', 'show'])
+        ->names('srg.admin.devices');
+    //Device create
+    Route::get('/devices/{device}/create','DeviceController@create')
+        ->name('srg.admin.devices.create');
+    //Восстановление записи после софт делит
+    Route::get('/devices/{device}/restore','DeviceController@restore')
+        ->name('srg.admin.devices.restore');
+
+    //DeviceName
+    Route::resource('devicenames', 'DeviceNameController')
+        ->except(['show'])
+        ->names('srg.admin.devicenames');
+    //Восстановление записи после софт делит
+    Route::get('/devicenames/{devicename}/restore','DeviceNameController@restore')
+        ->name('srg.admin.devicenames.restore');
 });

@@ -2,16 +2,16 @@
 
 @section('content')
     @php
-        /** @var \App\Models\StampAct $item */
+        /** @var \App\Models\Device $item */
     @endphp
     <div class="container">
-        @include('srg.admin.stampacts.includes.result_messages')
+        @include('srg.admin.devices.includes.result_messages')
 
         @if($item->exists)
-            <form method="POST" action="{{ route('srg.admin.stampacts.update', $item->id) }}">
+            <form method="POST" action="{{ route('srg.admin.devices.update', $item->id) }}">
             @method('PATCH')
         @else
-            <form method="POST" action="{{ route('srg.admin.stampacts.store') }}">
+            <form method="POST" action="{{ route('srg.admin.devices.store') }}">
         @endif
         {{ csrf_field() }}
         <div class="row justify-content-center">
@@ -26,7 +26,7 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade active show card border-primary mb-3" id="main_info">
                         <div class="card-body">
-                            @include('srg.admin.stampacts.includes.stampact_edit_main_tab')
+                            @include('srg.admin.devices.includes.device_edit_main_tab')
                         </div>
                     </div>
                 </div>

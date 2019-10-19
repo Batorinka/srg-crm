@@ -81,7 +81,7 @@
            type="date"
            name="stamp_act_date"
            value="{{ old('stamp_act_date', $item->stamp_act_date) }}"
-           required>Unit
+           required>
 </div>
 <div class="form-group">
     <label for="unit_id">Единица измерения давления в корректоре</label>

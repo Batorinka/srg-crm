@@ -19,19 +19,7 @@
             <div class="alert alert-success" role="alert">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 {{ session()->get('success') }}
-                @if (session('restore') and session('title') == 'gsobject')
-                    <a class="btn btn-outline-light btn-sm" href="{{route('srg.admin.gsobjects.restore', session()->get('restore'))}}">
-                        Восстановить?
-                    </a>
-                @elseif (session('restore') and session('title') == 'stampact')
-                    <a class="btn btn-outline-light btn-sm" href="{{route('srg.admin.stampacts.restore', session()->get('restore'))}}">
-                        Восстановить?
-                    </a>
-                @elseif (session('restore') and session('title') == 'limit')
-                    <a class="btn btn-outline-light btn-sm" href="{{route('srg.admin.limits.restore', session()->get('restore'))}}">
-                        Восстановить?
-                    </a>
-                @elseif (session('restore') and session('title') == 'device')
+                @if (session('restore'))
                     <a class="btn btn-outline-light btn-sm" href="{{route('srg.admin.devices.restore', session()->get('restore'))}}">
                         Восстановить?
                     </a>

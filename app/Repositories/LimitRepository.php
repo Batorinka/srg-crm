@@ -68,29 +68,14 @@ class LimitRepository extends CoreRepository
             'dec_10',
         ];
 
-        $results = $this->startConditions()
+        $limits = $this->startConditions()
             ->select($columns)
             ->where('gsobject_id', $gsobjectId)
             ->orderBy('year')
             ->get();
 
-        foreach ($results as $result) {
-            $result['quarterI_4']   = sprintf('%01.3F', ((float)$result->jan_4 + (float)$result->feb_4 + (float)$result->mar_4));
-            $result['quarterII_4']  = sprintf('%01.3F', ((float)$result->apr_4 + (float)$result->may_4 + (float)$result->jun_4));
-            $result['quarterIII_4'] = sprintf('%01.3F', ((float)$result->jul_4 + (float)$result->aug_4 + (float)$result->sep_4));
-            $result['quarterIV_4']  = sprintf('%01.3F', ((float)$result->oct_4 + (float)$result->nov_4 + (float)$result->dec_4));
-            $result['total_4']      = sprintf('%01.3F', ($result['quarterI_4'] + $result['quarterII_4'] + $result['quarterIII_4'] + $result['quarterIV_4']));
-            $result['quarterI_8']   = sprintf('%01.3F', ((float)$result->jan_8 + (float)$result->feb_8 + (float)$result->mar_8));
-            $result['quarterII_8']  = sprintf('%01.3F', ((float)$result->apr_8 + (float)$result->may_8 + (float)$result->jun_8));
-            $result['quarterIII_8'] = sprintf('%01.3F', ((float)$result->jul_8 + (float)$result->aug_8 + (float)$result->sep_8));
-            $result['quarterIV_8']  = sprintf('%01.3F', ((float)$result->oct_8 + (float)$result->nov_8 + (float)$result->dec_8));
-            $result['total_8']      = sprintf('%01.3F', ($result['quarterI_8'] + $result['quarterII_8'] + $result['quarterIII_8'] + $result['quarterIV_8']));
-            $result['quarterI_10']   = sprintf('%01.3F', ((float)$result->jan_10 + (float)$result->feb_10 + (float)$result->mar_10));
-            $result['quarterII_10']  = sprintf('%01.3F', ((float)$result->apr_10 + (float)$result->may_10 + (float)$result->jun_10));
-            $result['quarterIII_10'] = sprintf('%01.3F', ((float)$result->jul_10 + (float)$result->aug_10 + (float)$result->sep_10));
-            $result['quarterIV_10']  = sprintf('%01.3F', ((float)$result->oct_10 + (float)$result->nov_10 + (float)$result->dec_10));
-            $result['total_10']      = sprintf('%01.3F', ($result['quarterI_10'] + $result['quarterII_10'] + $result['quarterIII_10'] + $result['quarterIV_10']));
-        }
+        $results = $this->addTotalСalculation($limits);
+
         return $results;
     }
 
@@ -115,6 +100,29 @@ class LimitRepository extends CoreRepository
             ->first();
 
         return $result;
+    }
+
+    public function addTotalСalculation($limits)
+    {
+        foreach ($limits as $limit) {
+            $limit['quarterI_4']   = sprintf('%01.3F', ((float)$limit->jan_4 + (float)$limit->feb_4 + (float)$limit->mar_4));
+            $limit['quarterII_4']  = sprintf('%01.3F', ((float)$limit->apr_4 + (float)$limit->may_4 + (float)$limit->jun_4));
+            $limit['quarterIII_4'] = sprintf('%01.3F', ((float)$limit->jul_4 + (float)$limit->aug_4 + (float)$limit->sep_4));
+            $limit['quarterIV_4']  = sprintf('%01.3F', ((float)$limit->oct_4 + (float)$limit->nov_4 + (float)$limit->dec_4));
+            $limit['total_4']      = sprintf('%01.3F', ($limit['quarterI_4'] + $limit['quarterII_4'] + $limit['quarterIII_4'] + $limit['quarterIV_4']));
+            $limit['quarterI_8']   = sprintf('%01.3F', ((float)$limit->jan_8 + (float)$limit->feb_8 + (float)$limit->mar_8));
+            $limit['quarterII_8']  = sprintf('%01.3F', ((float)$limit->apr_8 + (float)$limit->may_8 + (float)$limit->jun_8));
+            $limit['quarterIII_8'] = sprintf('%01.3F', ((float)$limit->jul_8 + (float)$limit->aug_8 + (float)$limit->sep_8));
+            $limit['quarterIV_8']  = sprintf('%01.3F', ((float)$limit->oct_8 + (float)$limit->nov_8 + (float)$limit->dec_8));
+            $limit['total_8']      = sprintf('%01.3F', ($limit['quarterI_8'] + $limit['quarterII_8'] + $limit['quarterIII_8'] + $limit['quarterIV_8']));
+            $limit['quarterI_10']   = sprintf('%01.3F', ((float)$limit->jan_10 + (float)$limit->feb_10 + (float)$limit->mar_10));
+            $limit['quarterII_10']  = sprintf('%01.3F', ((float)$limit->apr_10 + (float)$limit->may_10 + (float)$limit->jun_10));
+            $limit['quarterIII_10'] = sprintf('%01.3F', ((float)$limit->jul_10 + (float)$limit->aug_10 + (float)$limit->sep_10));
+            $limit['quarterIV_10']  = sprintf('%01.3F', ((float)$limit->oct_10 + (float)$limit->nov_10 + (float)$limit->dec_10));
+            $limit['total_10']      = sprintf('%01.3F', ($limit['quarterI_10'] + $limit['quarterII_10'] + $limit['quarterIII_10'] + $limit['quarterIV_10']));
+            $limit['total_grand']   = sprintf('%01.3F', ($limit['total_4'] + $limit['total_8'] + $limit['total_10']));
+        }
+        return $limits;
     }
 //
 //    /**

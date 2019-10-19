@@ -55,6 +55,7 @@
                                 <td>{{ $limit->dec_4 }}</td>
                                 <td class="table-primary">{{ $limit->quarterIV_4 }}</td>
                             </tr>
+
                             </tbody>
                         </table>
                         <table class="table table-limits">

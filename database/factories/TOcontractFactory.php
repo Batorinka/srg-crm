@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(TO_contract::class, function (Faker $faker) {
 
     return [
-        'main_contract_id'  => rand(1, 50),
+        'main_contract_id'  => rand(1, 10),
         'slug'              => rand(1000000000,9999999999),
         'number'            => $faker->ean8,
         'payment_period'    => 12,

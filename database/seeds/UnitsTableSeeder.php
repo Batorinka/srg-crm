@@ -13,12 +13,6 @@ class UnitsTableSeeder extends Seeder
     {
         $data = [
             [
-                'title'		=> 'м3/ч',
-            ],
-            [
-                'title'		=> 'С',
-            ],
-            [
                 'title'		=> 'кгс/см2',
             ],
             [

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\SAUPG\Admin;
 use App\Http\Controllers\SAUPG\Admin\BaseController;
 use App\Http\Requests\GsobjectCreateRequest;
 use App\Http\Requests\GsobjectUpdateRequest;
+use App\Models\Device;
 use App\Models\Gsobject;
 use App\Models\MainContract;
 use App\Models\StampAct;
+use App\Repositories\DeviceRepository;
 use App\Repositories\GsobjectRepository;
 use App\Repositories\LimitRepository;
 use App\Repositories\MainContractRepository;
@@ -51,6 +53,11 @@ class GsobjectController extends BaseController
     private $limitRepository;
 
     /**
+     * @var LimitRepository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private $deviceRepository;
+
+    /**
      * GsobjectController constructor.
      */
     public function __construct()
@@ -62,6 +69,7 @@ class GsobjectController extends BaseController
         $this->toContractRepository     = app(TOContractRepository::class);
         $this->stampActRepository       = app(StampActRepository::class);
         $this->limitRepository          = app(LimitRepository::class);
+        $this->deviceRepository         = app(DeviceRepository::class);
     }
 
     /**
@@ -133,11 +141,13 @@ class GsobjectController extends BaseController
         }
         $stampActs = $this->stampActRepository->getAllByGSObjectId($item->id);
         $limits    = $this->limitRepository->getAllByGSObjectId($item->id);
+        $devices    = $this->deviceRepository->getAllByGSObjectId($item->id);
 
         return view('srg.admin.gsobjects.show', compact(
             'item',
             'stampActs',
-            'limits'
+            'limits',
+            'devices'
         ));
     }
 
@@ -214,8 +224,12 @@ class GsobjectController extends BaseController
 
         $stampacts  = $this->stampActRepository->getAllByGSObjectId($item->id);
         $limits     = $this->limitRepository->getAllByGSObjectId($item->id);
+        $devices    = $this->deviceRepository->getAllByGSObjectId($item->id);
 
-        $result = ($stampacts->isEmpty() and $limits->isEmpty()) ? Gsobject::destroy($item->id) : false;
+        $result = ($stampacts->isEmpty()
+            and $limits->isEmpty()
+            and $devices->isEmpty()
+        ) ? Gsobject::destroy($item->id) : false;
 
         if ($result) {
             return redirect()

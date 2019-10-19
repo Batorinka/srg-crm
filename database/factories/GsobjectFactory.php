@@ -37,7 +37,7 @@ $factory->define(Gsobject::class, function (Faker $faker) {
         'address'           => $faker->address,
         'stamp_act_date'    => $faker->date(),
         'unit_id'           => rand(1, 5),
-        'main_contract_id'  => rand(1, 50),
+        'main_contract_id'  => rand(1, 10),
         'TO_contract_id'    => rand(1, 10),
     ];
 });

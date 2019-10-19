@@ -92,6 +92,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.maincontracts.index') }}">
+                        Назад
+                    </a>
                     <a href="{{ route('srg.admin.maincontracts.edit', $item->slug) }}" class="list-group-item list-group-item-action">
                         Изменить
                     </a>

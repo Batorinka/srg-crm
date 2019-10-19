@@ -13,6 +13,9 @@
                         <a class="nav-link active" data-toggle="tab" href="#info" style="">Общая информация</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#devices" style="">Узел учета газа</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#stamps" style="">Пломбы</a>
                     </li>
                     <li class="nav-item">
@@ -21,6 +24,7 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     @include('srg.admin.gsobjects.includes.gsobject_show_info_tab')
+                    @include('srg.admin.gsobjects.includes.gsobject_show_devices_tab')
                     @include('srg.admin.gsobjects.includes.gsobject_show_stamps_tab')
                     @include('srg.admin.gsobjects.includes.gsobject_show_limits_tab')
                 </div>
