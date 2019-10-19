@@ -39,7 +39,7 @@ class StampActController extends BaseController
      */
     public function create($slug)
     {
-        $item = new StampAct();
+        $item = StampAct::make();
 
         $gsobject = $this->gsobjectRepository->getEdit($slug);
 
@@ -57,7 +57,7 @@ class StampActController extends BaseController
     public function store(StampActCreateRequest $request)
     {
         $data = $request->input();
-        $item = (new StampAct())->create($data);
+        $item = StampAct::create($data);
 
         if ($item) {
             return redirect()

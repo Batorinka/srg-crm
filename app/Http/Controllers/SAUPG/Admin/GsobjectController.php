@@ -91,11 +91,11 @@ class GsobjectController extends BaseController
      */
     public function create()
     {
-        $item = new Gsobject();
+        $item = Gsobject::make();
 
-        $unitList = $this->unitRepository->getForComboBox();
-        $mainContractList = $this->mainContractRepository->getForComboBox();
-        $toContractList   = $this->toContractRepository->getForComboBox();
+        $unitList           = $this->unitRepository->getForComboBox();
+        $mainContractList   = $this->mainContractRepository->getForComboBox();
+        $toContractList     = $this->toContractRepository->getForComboBox();
 
         return view('srg.admin.gsobjects.edit',
             compact('item',
@@ -113,7 +113,7 @@ class GsobjectController extends BaseController
     public function store(GsobjectCreateRequest $request)
     {
         $data = $request->input();
-        $item = (new Gsobject())->create($data);
+        $item = Gsobject::create($data);
 
         if ($item) {
             return redirect()
@@ -141,7 +141,7 @@ class GsobjectController extends BaseController
         }
         $stampActs = $this->stampActRepository->getAllByGSObjectId($item->id);
         $limits    = $this->limitRepository->getAllByGSObjectId($item->id);
-        $devices    = $this->deviceRepository->getAllByGSObjectId($item->id);
+        $devices   = $this->deviceRepository->getAllByGSObjectId($item->id);
 
         return view('srg.admin.gsobjects.show', compact(
             'item',

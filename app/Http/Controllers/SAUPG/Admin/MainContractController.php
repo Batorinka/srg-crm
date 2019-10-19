@@ -56,7 +56,7 @@ class MainContractController extends BaseController
      */
     public function create()
     {
-        $item = new MainContract();
+        $item = MainContract::make();
         $categoryList = $this->mainContractTypeRepository->getForComboBox();
 
         return view('srg.admin.mainContracts.create',
@@ -73,7 +73,7 @@ class MainContractController extends BaseController
     public function store(MainContractCreateRequest $request)
     {
         $data = $request->input();
-        $item = (new MainContract())->create($data);
+        $item = MainContract::create($data);
 
         if ($item) {
             return redirect()->route('srg.admin.maincontracts.edit', [$item->slug])

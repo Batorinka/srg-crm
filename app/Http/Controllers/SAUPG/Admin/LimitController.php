@@ -44,10 +44,10 @@ class LimitController extends BaseController
      */
     public function create($slug)
     {
-        $item = new Limit();
+        $item = Limit::make();
 
         $gsobject = $this->gsobjectRepository->getEdit($slug);
-        $groups     = $this->groupRepository->getForComboBox();
+        $groups   = $this->groupRepository->getForComboBox();
 
         return view('srg.admin.limits.edit',
             compact('item',
@@ -64,7 +64,7 @@ class LimitController extends BaseController
     public function store(LimitCreateRequest $request)
     {
         $data = $request->input();
-        $item = (new Limit())->create($data);
+        $item = Limit::create($data);
 
         if ($item) {
             return redirect()
