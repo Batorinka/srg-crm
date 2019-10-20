@@ -93,4 +93,12 @@ Route::group($groupData, function () {
     //Восстановление записи после софт делит
     Route::get('/devicenames/{devicename}/restore','DeviceNameController@restore')
         ->name('srg.admin.devicenames.restore');
+
+    //EquipmentName
+    Route::resource('equipmentnames', 'EquipmentNameController')
+        ->except(['show'])
+        ->names('srg.admin.equipmentnames');
+    //Восстановление записи после софт делит
+    Route::get('/equipmentnames/{equipmentname}/restore','EquipmentNameController@restore')
+        ->name('srg.admin.equipmentnames.restore');
 });

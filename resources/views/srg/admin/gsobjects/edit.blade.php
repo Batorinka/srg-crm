@@ -43,7 +43,11 @@
             <div class="col-md-12">
                 <div class="list-group">
                     <button type="submit" class="list-group-item list-group-item-action">Сохранить</button>
-                    <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.gsobjects.show', $item->slug) }}">Назад</a>
+                    @if($item->exists)
+                        <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.gsobjects.show', $item->slug) }}">Назад</a>
+                    @else
+                        <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.maincontracts.index') }}">Назад</a>
+                    @endif
                 </div>
             </div>
         </div>

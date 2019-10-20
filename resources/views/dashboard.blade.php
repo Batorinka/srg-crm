@@ -92,6 +92,30 @@
                 </div>
             </a>
         </div>
+        <div class="col-md-6">
+            <a href="{{ route('srg.admin.devicenames.index') }}">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-header">Справочник приборов учета газа</div>
+                    <div class="card-body d-none d-sm-block">
+                        <p>
+                            В данном меню можно добавлять, редактировать или удалять информацию о приборах учета газа:
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ route('srg.admin.equipmentnames.index') }}">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-header">Справочник газоиспользующего оборудования</div>
+                    <div class="card-body d-none d-sm-block">
+                        <p>
+                            В данном меню можно добавлять, редактировать или удалять информацию о газоиспользующем оборудование:
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 @endsection

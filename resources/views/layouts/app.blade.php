@@ -45,6 +45,13 @@
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="">Справочники</a>
+                                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+                                    <a class="dropdown-item" href="{{ route('srg.admin.devicenames.index') }}">Приборы</a>
+                                    <a class="dropdown-item" href="{{ route('srg.admin.equipmentnames.index') }}">ГИО</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="">Печать</a>
                                 <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
                                     <a class="dropdown-item" href="{{ route('srg.admin.printcontract.index') }}">Договоры</a>

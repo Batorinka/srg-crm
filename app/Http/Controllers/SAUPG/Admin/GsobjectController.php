@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\SAUPG\Admin;
 
-use App\Http\Controllers\SAUPG\Admin\BaseController;
 use App\Http\Requests\GsobjectCreateRequest;
 use App\Http\Requests\GsobjectUpdateRequest;
-use App\Models\Device;
 use App\Models\Gsobject;
-use App\Models\MainContract;
-use App\Models\StampAct;
 use App\Repositories\DeviceRepository;
 use App\Repositories\GsobjectRepository;
 use App\Repositories\LimitRepository;
@@ -16,7 +12,6 @@ use App\Repositories\MainContractRepository;
 use App\Repositories\StampActRepository;
 use App\Repositories\UnitRepository;
 use App\Repositories\TOContractRepository;
-use Illuminate\Http\Request;
 
 /**
  * Class GsobjectController
@@ -107,7 +102,7 @@ class GsobjectController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Requests\GsobjectCreateRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(GsobjectCreateRequest $request)
@@ -220,7 +215,7 @@ class GsobjectController extends BaseController
             abort(404);
         }
 
-        //TODO сделать проверку на связь с devices, equipments, programming_acts
+        //TODO сделать проверку на связь с devices, equipmentnames, programming_acts
 
         $stampacts  = $this->stampActRepository->getAllByGSObjectId($item->id);
         $limits     = $this->limitRepository->getAllByGSObjectId($item->id);

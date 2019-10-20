@@ -14,7 +14,7 @@
             <form method="POST" action="{{ route('srg.admin.maincontracts.store') }}">
         @endif
         {{ csrf_field() }}
-        <input name="user_id" type="text" hidden value="{{ \Auth::user()->id }}">
+        <input name="user_id" type="text" hidden value="{{ Auth::user()->id }}">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
@@ -44,7 +44,11 @@
             <div class="col-md-12">
                 <div class="list-group">
                     <button type="submit" class="list-group-item list-group-item-action">Сохранить</button>
-                    <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.maincontracts.show', $item->slug) }}">Назад</a>
+                    @if($item->exists)
+                        <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.maincontracts.show', $item->slug) }}">Назад</a>
+                    @else
+                        <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.maincontracts.index') }}">Назад</a>
+                    @endif
                 </div>
             </div>
         </div>
