@@ -82,6 +82,15 @@
                                 </li>
                                 @endforeach
                             </ul>
+                            <div class="row justify-content-center">
+                                <div class="col-md-12">
+                                    <div class="list-group">
+                                        <a href="{{ route('srg.admin.gsobjects.create', $item->slug) }}" class="list-group-item list-group-item-action">
+                                            Добавить
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         @endif
                     </div>

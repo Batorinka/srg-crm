@@ -43,6 +43,13 @@ class MainContractRepository extends CoreRepository
         return $result;
     }
 
+    public function getOneById($id)
+    {
+        return $this->startConditions()
+            ->where('id', $id)
+            ->first();
+    }
+
     /**
      * @return
      */
@@ -102,26 +109,6 @@ class MainContractRepository extends CoreRepository
             ->withTrashed()
             ->where('slug', $slug)
             ->first();
-
-        return $result;
-    }
-
-    /**
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function getForComboBox()
-    {
-        $columns = [
-            'id',
-            'company_sub_name',
-        ];
-        $result = $this
-            ->startConditions()
-            ->select($columns)
-            ->toBase()
-            ->get();
 
         return $result;
     }

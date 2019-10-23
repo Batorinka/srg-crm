@@ -1,24 +1,8 @@
 @php
     /** @var \App\Models\Gsobject $item */
+    /** @var \App\Models\MainContract $mainContract */
 @endphp
-<div class="form-group">
-    <label for="main_contract_id">Название предприятия</label>
-    <select name="main_contract_id"
-            id="main_contract_id"
-            class="form-control"
-            placeholder="Выберите предприятие"
-            required>
-        @foreach($mainContractList as $mainContractOption)
-            <option value="{{ $mainContractOption->id }}"
-                    @if($mainContractOption->id ==
-                        old('main_contract_id', $item->main_contract_id))
-                    selected
-                @endif>
-                {{ $mainContractOption->company_sub_name }}
-            </option>
-        @endforeach
-    </select>
-</div>
+<input name="main_contract_id" type="text" hidden value="{{ $mainContract->id }}">
 <div class="form-group">
     <label for="name">Название объекта</label>
     <input class="form-control"

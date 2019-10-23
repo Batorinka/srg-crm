@@ -48,7 +48,11 @@ Route::group($groupData, function () {
 
     //Gsobject
     Route::resource('gsobjects', 'GsobjectController')
+        ->except(['create', 'index'])
         ->names('srg.admin.gsobjects');
+    //Gsobject create
+    Route::get('/gsobjects/{gsobject}/create','GsobjectController@create')
+        ->name('srg.admin.gsobjects.create');
     //Восстановление записи после софт делит
     Route::get('/gsobjects/{gsobject}/restore','GsobjectController@restore')
         ->name('srg.admin.gsobjects.restore');

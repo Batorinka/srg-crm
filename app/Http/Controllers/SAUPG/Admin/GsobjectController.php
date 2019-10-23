@@ -74,35 +74,24 @@ class GsobjectController extends BaseController
         $this->equipmentRepository      = app(EquipmentRepository::class);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $paginator = $this->gsobjectRepository->getAllWithPaginate();
-
-        return view('srg.admin.gsobjects.index', compact('paginator'));
-    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($slug)
     {
         $item = Gsobject::make();
 
         $unitList           = $this->unitRepository->getForComboBox();
-        $mainContractList   = $this->mainContractRepository->getForComboBox();
+        $mainContract       = $this->mainContractRepository->getShow($slug);
         $toContractList     = $this->toContractRepository->getForComboBox();
 
         return view('srg.admin.gsobjects.edit',
             compact('item',
                 'unitList',
-                'mainContractList',
+                'mainContract',
                 'toContractList'));
     }
 
@@ -169,13 +158,13 @@ class GsobjectController extends BaseController
         }
 
         $unitList         = $this->unitRepository->getForComboBox();
-        $mainContractList = $this->mainContractRepository->getForComboBox();
+        $mainContract     = $this->mainContractRepository->getOneById($item->main_contract_id);
         $toContractList   = $this->toContractRepository->getForComboBox();
 
         return view('srg.admin.gsobjects.edit',
             compact('item',
                 'unitList',
-                'mainContractList',
+                'mainContract',
                 'toContractList'));
     }
 

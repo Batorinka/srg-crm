@@ -44,35 +44,6 @@
             </a>
         </div>
         <div class="col-md-6">
-            <a href="{{ route('srg.admin.gsobjects.index') }}">
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-header">Список объектов</div>
-                    <div class="card-body d-none d-sm-block">
-                        <p>
-                            В данном меню можно добавлять, редактировать или удалять информацию об объекте:
-                        </p>
-                        <ul>
-                            <li>
-                                Название название объекта(ГРП, котельная и т.д.)
-                            </li>
-                            <li>
-                                Адрес объекта
-                            </li>
-                            <li>
-                                Информация об ответственном лице на объекте(мастер котельной, главный энергетик и т.д.)
-                            </li>
-                            <li>
-                                Дата акта установки пломб
-                            </li>
-                            <li>
-                                и другое...
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-6">
             <a href="{{ route('srg.admin.setupvalues.index') }}">
                 <div class="card text-white bg-warning mb-3">
                     <div class="card-header">Информация о Мособлгазе</div>
