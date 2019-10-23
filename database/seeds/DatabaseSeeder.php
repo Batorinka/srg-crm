@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Device;
+use App\Models\Equipment;
 use App\Models\Gsobject;
 use App\Models\Limit;
 use App\Models\MainContract;
@@ -33,5 +34,6 @@ class DatabaseSeeder extends Seeder
         factory(StampAct::class, 20)->create();
         factory(Limit::class, 10)->create();
         factory(Device::class, 5)->create();
+        factory(Equipment::class, 5)->create();
     }
 }

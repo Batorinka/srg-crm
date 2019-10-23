@@ -9,9 +9,8 @@
 ->names('srg.admin.stampacts');``
 - ``php artisan route:list > routes.txt``
 - Добавляем нужные поля в миграцию
-- Создаем Factory
-- Создаем Seeder ``php artisan make:seeder DeviceNameTableSeeder
-``
+- Создаем Factory ``php artisan make:factory EquipmentFactory --model=Equipment``
+- Создаем Seeder ``php artisan make:seeder DeviceNameTableSeeder``
 - В файл seeds/DatabaseSeeder.php добавляем строку:
 ``factory(\App\Models\StampAct::class, 20)->create();``
 - php artisan migrate --seed

@@ -6,6 +6,7 @@ use App\Http\Requests\GsobjectCreateRequest;
 use App\Http\Requests\GsobjectUpdateRequest;
 use App\Models\Gsobject;
 use App\Repositories\DeviceRepository;
+use App\Repositories\EquipmentRepository;
 use App\Repositories\GsobjectRepository;
 use App\Repositories\LimitRepository;
 use App\Repositories\MainContractRepository;
@@ -48,9 +49,14 @@ class GsobjectController extends BaseController
     private $limitRepository;
 
     /**
-     * @var LimitRepository|\Illuminate\Contracts\Foundation\Application|mixed
+     * @var DeviceRepository|\Illuminate\Contracts\Foundation\Application|mixed
      */
     private $deviceRepository;
+
+    /**
+     * @var EquipmentRepository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private $equipmentRepository;
 
     /**
      * GsobjectController constructor.
@@ -65,6 +71,7 @@ class GsobjectController extends BaseController
         $this->stampActRepository       = app(StampActRepository::class);
         $this->limitRepository          = app(LimitRepository::class);
         $this->deviceRepository         = app(DeviceRepository::class);
+        $this->equipmentRepository      = app(EquipmentRepository::class);
     }
 
     /**
@@ -134,15 +141,17 @@ class GsobjectController extends BaseController
         if (empty($item)) {
             abort(404);
         }
-        $stampActs = $this->stampActRepository->getAllByGSObjectId($item->id);
-        $limits    = $this->limitRepository->getAllByGSObjectId($item->id);
-        $devices   = $this->deviceRepository->getAllByGSObjectId($item->id);
+        $stampActs  = $this->stampActRepository->getAllByGSObjectId($item->id);
+        $limits     = $this->limitRepository->getAllByGSObjectId($item->id);
+        $devices    = $this->deviceRepository->getAllByGSObjectId($item->id);
+        $equipments = $this->equipmentRepository->getAllByGSObjectId($item->id);
 
         return view('srg.admin.gsobjects.show', compact(
             'item',
             'stampActs',
             'limits',
-            'devices'
+            'devices',
+            'equipments'
         ));
     }
 
@@ -220,10 +229,12 @@ class GsobjectController extends BaseController
         $stampacts  = $this->stampActRepository->getAllByGSObjectId($item->id);
         $limits     = $this->limitRepository->getAllByGSObjectId($item->id);
         $devices    = $this->deviceRepository->getAllByGSObjectId($item->id);
+        $equipments = $this->equipmentRepository->getAllByGSObjectId($item->id);
 
         $result = ($stampacts->isEmpty()
             and $limits->isEmpty()
             and $devices->isEmpty()
+            and $equipments->isEmpty()
         ) ? Gsobject::destroy($item->id) : false;
 
         if ($result) {

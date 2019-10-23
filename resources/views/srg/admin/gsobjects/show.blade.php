@@ -19,6 +19,9 @@
                         <a class="nav-link" data-toggle="tab" href="#stamps" style="">Пломбы</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#equipments" style="">ГИО</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#limits" style="">Лимиты</a>
                     </li>
                 </ul>
@@ -27,6 +30,7 @@
                     @include('srg.admin.gsobjects.includes.gsobject_show_devices_tab')
                     @include('srg.admin.gsobjects.includes.gsobject_show_stamps_tab')
                     @include('srg.admin.gsobjects.includes.gsobject_show_limits_tab')
+                    @include('srg.admin.gsobjects.includes.gsobject_show_equipments_tab')
                 </div>
             </div>
         </div>

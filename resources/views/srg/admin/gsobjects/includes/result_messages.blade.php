@@ -35,6 +35,10 @@
                     <a class="btn btn-outline-light btn-sm" href="{{route('srg.admin.devices.restore', session()->get('restore'))}}">
                         Восстановить?
                     </a>
+                @elseif (session('restore') and session('title') == 'equipment')
+                    <a class="btn btn-outline-light btn-sm" href="{{route('srg.admin.equipments.restore', session()->get('restore'))}}">
+                        Восстановить?
+                    </a>
                 @endif
             </div>
         </div>
