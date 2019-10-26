@@ -66,3 +66,14 @@
               minlength="3"
               required>{{ old('requisites', $item->requisites) }}</textarea>
 </div>
+<div class="form-group">
+    <label>Тип предприятия</label>
+    <div class="custom-control custom-radio">
+        <input type="radio" id="is_industry1" name="is_industry" value="1" class="custom-control-input" @if($item->is_industry) checked @endif>
+        <label class="custom-control-label" for="is_industry1">Промышленность</label>
+    </div>
+    <div class="custom-control custom-radio">
+        <input type="radio" id="is_industry2" name="is_industry" value="0" class="custom-control-input" @if(!$item->is_industry) checked @endif>
+        <label class="custom-control-label" for="is_industry2">Комбыт</label>
+    </div>
+</div>

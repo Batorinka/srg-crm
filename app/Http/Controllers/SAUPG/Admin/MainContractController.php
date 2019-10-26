@@ -115,6 +115,7 @@ class MainContractController extends BaseController
         if (empty($item)) {
             abort(404);
         }
+//        dd($item);
 
         $categoryList = $this->mainContractTypeRepository->getForComboBox();
 
@@ -140,7 +141,7 @@ class MainContractController extends BaseController
         }
 
         $data = $request->all();
-
+//        dd($data);
         $result = $item->update($data);
 
         if ($result) {

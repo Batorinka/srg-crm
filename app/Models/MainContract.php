@@ -26,6 +26,9 @@ use Symfony\Component\VarDumper\Cloner\Data;
  * @property string             $contractor_cause
  * @property string             $requisites
  * @property string             $supply_contract
+ * @property boolean            $is_industry
+ * @property boolean            $is_heat_generating
+ * @property string             $contract_clause_7_6
  */
 class MainContract extends Model
 {
@@ -47,6 +50,9 @@ class MainContract extends Model
             'contractor_cause',
             'requisites',
             'supply_contract',
+            'is_industry',
+            'is_heat_generating',
+            'contract_clause_7_6'
         ];
 
     /**

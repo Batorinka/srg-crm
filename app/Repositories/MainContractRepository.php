@@ -66,6 +66,9 @@ class MainContractRepository extends CoreRepository
             'contractor_name',
             'contractor_cause',
             'requisites',
+            'is_industry',
+            'is_heat_generating',
+            'contract_clause_7_6'
         ];
 
         $result = $this->startConditions()
@@ -86,9 +89,12 @@ class MainContractRepository extends CoreRepository
      */
     public function getShow($slug)
     {
-        return $this->startConditions()
+        $result = $this->startConditions()
             ->where('slug', $slug)
             ->first();
+        $result = $this->beautify_is_industry($result);
+        $result = $this->beautify_is_heat_generating($result);
+        return $result;
     }
 
     /**
@@ -111,5 +117,17 @@ class MainContractRepository extends CoreRepository
             ->first();
 
         return $result;
+    }
+
+    public function beautify_is_industry($contract)
+    {
+        $contract['is_industry'] = ($contract['is_industry']) ? 'Промышленность' : 'Комбыт';
+        return $contract;
+    }
+
+    public function beautify_is_heat_generating($contract)
+    {
+        $contract['is_heat_generating'] = ($contract['is_heat_generating']) ? 'Да' : 'Нет';
+        return $contract;
     }
 }

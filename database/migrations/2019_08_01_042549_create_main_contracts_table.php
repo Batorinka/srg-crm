@@ -36,6 +36,10 @@ class CreateMainContractsTable extends Migration
             $table->text('requisites');
             $table->text('supply_contract');
 
+            $table->boolean('is_industry');
+            $table->boolean('is_heat_generating');
+            $table->string('contract_clause_7_6');
+
             $table->timestamps();
             $table->softDeletes();
 

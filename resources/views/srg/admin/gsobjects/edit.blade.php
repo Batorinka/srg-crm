@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#main_info" style="">Основная информация</a>
+                        <a class="nav-link active" data-toggle="tab" href="#main_info" style="">{{ $mainContract->company_sub_name }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#contracts" style="">Договоры</a>
@@ -46,7 +46,7 @@
                     @if($item->exists)
                         <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.gsobjects.show', $item->slug) }}">Назад</a>
                     @else
-                        <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.maincontracts.index') }}">Назад</a>
+                        <a class="list-group-item list-group-item-action" href="{{ route('srg.admin.maincontracts.show', $mainContract->slug) }}">Назад</a>
                     @endif
                 </div>
             </div>

@@ -22,6 +22,9 @@ $factory->define(MainContract::class, function (Faker $faker) {
         'contractor_cause'      => $faker->colorName,
         'requisites'            => $faker->realText('30'),
         'supply_contract'       => $faker->realText('10'),
+        'is_industry'           => (bool)random_int(0, 1),
+        'is_heat_generating'    => (bool)random_int(0, 1),
+        'contract_clause_7_6'   => '4.1.1',
         'user_id'               => '1'
     ];
 });

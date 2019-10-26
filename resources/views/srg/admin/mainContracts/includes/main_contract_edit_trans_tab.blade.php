@@ -67,3 +67,23 @@
                minlength="3"
                required>
 </div>
+<div class="form-group">
+    <label>Тепловырабатывающее</label>
+    <div class="custom-control custom-radio">
+        <input type="radio" id="is_heat_generating1" name="is_heat_generating" value="1" class="custom-control-input" @if($item->is_heat_generating) checked @endif>
+        <label class="custom-control-label" for="is_heat_generating1">Да</label>
+    </div>
+    <div class="custom-control custom-radio">
+        <input type="radio" id="is_heat_generating2" name="is_heat_generating" value="0" class="custom-control-input" @if(!$item->is_heat_generating) checked @endif>
+        <label class="custom-control-label" for="is_heat_generating2">Нет</label>
+    </div>
+</div>
+<div class="form-group">
+    <label for="contract_clause_7_6">Пункт используемый в пункте 7.6 договора</label>
+    <input class="form-control"
+           id="contract_clause_7_6"
+           type="text"
+           placeholder="Пункт используемый в пункте 7.6 договора"
+           name="contract_clause_7_6"
+           value="{{ old('contract_clause_7_6', $item->contract_clause_7_6) }}">
+</div>
