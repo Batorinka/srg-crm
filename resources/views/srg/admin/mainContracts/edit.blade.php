@@ -14,7 +14,6 @@
             <form method="POST" action="{{ route('srg.admin.maincontracts.store') }}">
         @endif
         {{ csrf_field() }}
-        <input name="user_id" type="text" hidden value="{{ Auth::user()->id }}">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">

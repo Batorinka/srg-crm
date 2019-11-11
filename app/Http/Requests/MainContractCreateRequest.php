@@ -25,7 +25,6 @@ class MainContractCreateRequest extends FormRequest
     {
         return [
             'main_contract_type_id' => 'required|integer|exists:main_contract_types,id',
-            'user_id'               => 'required|integer|exists:users,id',
             'company_full_name'     => 'required|min:3|max:100',
             'company_sub_name'      => 'required|min:3|max:100',
             'number'                => 'required|max:20',

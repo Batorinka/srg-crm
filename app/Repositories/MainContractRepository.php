@@ -109,6 +109,26 @@ class MainContractRepository extends CoreRepository
             ->first();
     }
 
+    /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function getForComboBox()
+    {
+        $columns = [
+            'id',
+            'company_sub_name',
+        ];
+        $result = $this
+            ->startConditions()
+            ->select($columns)
+            ->toBase()
+            ->get();
+
+        return $result;
+    }
+
     public function getTreashedMainContract($slug)
     {
         $result = $this->startConditions()

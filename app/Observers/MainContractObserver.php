@@ -12,6 +12,7 @@ class MainContractObserver
     public function creating(MainContract $mainContract)
     {
         $this->setSlug($mainContract);
+        $mainContract->user_id = auth()->id();
     }
 
     /**
