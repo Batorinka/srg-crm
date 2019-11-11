@@ -65,10 +65,11 @@ class LimitController extends BaseController
     {
         $data = $request->input();
         $item = Limit::create($data);
+        $gsobject = $this->gsobjectRepository->getOneById($item->gsobject_id);
 
         if ($item) {
             return redirect()
-                ->route('srg.admin.limits.edit', [$item->id])
+                ->route('srg.admin.gsobjects.show', [$gsobject->slug])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -109,6 +110,7 @@ class LimitController extends BaseController
     public function update(LimitUpdateRequest $request, $id)
     {
         $item = $this->limitRepository->getEdit($id);
+        $gsobject = $this->gsobjectRepository->getOneById($item->gsobject_id);
 
         if (empty($item)) {
             return back()
@@ -122,7 +124,7 @@ class LimitController extends BaseController
 
         if ($result) {
             return redirect()
-                ->route('srg.admin.limits.edit', $item->id)
+                ->route('srg.admin.gsobjects.show', [$gsobject->slug])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()

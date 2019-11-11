@@ -66,10 +66,11 @@ class EquipmentController extends BaseController
     {
         $data = $request->input();
         $item = Equipment::create($data);
+        $gsobject = $this->gsobjectRepository->getOneById($item->gsobject_id);
 
         if ($item) {
             return redirect()
-                ->route('srg.admin.equipments.edit', [$item->id])
+                ->route('srg.admin.gsobjects.show', [$gsobject->slug])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -112,6 +113,7 @@ class EquipmentController extends BaseController
     public function update(EquipmentUpdateRequest $request, $id)
     {
         $item = $this->equipmentRepository->getEdit($id);
+        $gsobject = $this->gsobjectRepository->getOneById($item->gsobject_id);
 
         if (empty($item)) {
             return back()
@@ -125,7 +127,7 @@ class EquipmentController extends BaseController
 
         if ($result) {
             return redirect()
-                ->route('srg.admin.equipments.edit', $item->id)
+                ->route('srg.admin.gsobjects.show', [$gsobject->slug])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()

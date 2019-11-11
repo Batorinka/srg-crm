@@ -108,7 +108,7 @@ class GsobjectController extends BaseController
 
         if ($item) {
             return redirect()
-                ->route('srg.admin.gsobjects.edit', [$item->slug])
+                ->route('srg.admin.gsobjects.show', [$item->slug])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -191,7 +191,7 @@ class GsobjectController extends BaseController
 
         if ($result) {
             return redirect()
-                ->route('srg.admin.gsobjects.edit', $item->slug)
+                ->route('srg.admin.gsobjects.show', $item->slug)
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -213,7 +213,7 @@ class GsobjectController extends BaseController
             abort(404);
         }
 
-        //TODO сделать проверку на связь с devices, equipmentnames, programming_acts
+        //TODO сделать проверку на связь с programming_acts
 
         $stampacts  = $this->stampActRepository->getAllByGSObjectId($item->id);
         $limits     = $this->limitRepository->getAllByGSObjectId($item->id);

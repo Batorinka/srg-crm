@@ -67,10 +67,11 @@ class DeviceController extends BaseController
     {
         $data = $request->input();
         $item = Device::create($data);
+        $gsobject = $this->gsobjectRepository->getOneById($item->gsobject_id);
 
         if ($item) {
             return redirect()
-                ->route('srg.admin.devices.edit', [$item->id])
+                ->route('srg.admin.gsobjects.show', [$gsobject->slug])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -113,6 +114,7 @@ class DeviceController extends BaseController
     public function update(DeviceUpdateRequest $request, $id)
     {
         $item = $this->deviceRepository->getEdit($id);
+        $gsobject = $this->gsobjectRepository->getOneById($item->gsobject_id);
 
         if (empty($item)) {
             return back()
@@ -126,7 +128,7 @@ class DeviceController extends BaseController
 
         if ($result) {
             return redirect()
-                ->route('srg.admin.devices.edit', $item->id)
+                ->route('srg.admin.gsobjects.show', [$gsobject->slug])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()

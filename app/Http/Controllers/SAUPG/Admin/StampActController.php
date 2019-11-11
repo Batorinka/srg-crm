@@ -58,10 +58,11 @@ class StampActController extends BaseController
     {
         $data = $request->input();
         $item = StampAct::create($data);
+        $gsobject = $this->gsobjectRepository->getOneById($item->gsobject_id);
 
         if ($item) {
             return redirect()
-                ->route('srg.admin.stampacts.edit', [$item->id])
+                ->route('srg.admin.gsobjects.show', [$gsobject->slug])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -100,6 +101,7 @@ class StampActController extends BaseController
     public function update(StampActUpdateRequest $request, $id)
     {
         $item = $this->stampActRepository->getEdit($id);
+        $gsobject = $this->gsobjectRepository->getOneById($item->gsobject_id);
 
         if (empty($item)) {
             return back()
@@ -113,7 +115,7 @@ class StampActController extends BaseController
 
         if ($result) {
             return redirect()
-                ->route('srg.admin.stampacts.edit', $item->id)
+                ->route('srg.admin.gsobjects.show', [$gsobject->slug])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()

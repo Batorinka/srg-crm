@@ -76,7 +76,7 @@ class MainContractController extends BaseController
         $item = MainContract::create($data);
 
         if ($item) {
-            return redirect()->route('srg.admin.maincontracts.edit', [$item->slug])
+            return redirect()->route('srg.admin.maincontracts.show', [$item->slug])
                 ->with(['success' => 'Успешно сохраненено']);
         } else {
             return back()->withErrors(['msg' => 'Ошибка сохранения'])
@@ -146,7 +146,7 @@ class MainContractController extends BaseController
 
         if ($result) {
             return redirect()
-                ->route('srg.admin.maincontracts.edit', $item->slug)
+                ->route('srg.admin.maincontracts.show', $item->slug)
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
