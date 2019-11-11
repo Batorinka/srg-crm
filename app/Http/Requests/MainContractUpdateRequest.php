@@ -25,7 +25,6 @@ class MainContractUpdateRequest extends FormRequest
     {
         return [
             'id'                    => 'request|integer|exists:main_contracts,id',
-            'user_id'               => 'required|integer|exists:users,id',
             'company_full_name'     => 'required|min:3|max:100',
             'company_sub_name'      => 'required|min:3|max:100',
             'number'                => 'required|max:20',
